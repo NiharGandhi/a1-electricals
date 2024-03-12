@@ -7,6 +7,7 @@ import TUV from "../../public/assets/tuv-logo.jpg";
 import FIEO from "../../public/assets/fieo-logo.jpg";
 import TextCard from "./TextCard";
 import { useState } from "react";
+import Link from "next/link";
 
 
 export const Hero = () => {
@@ -42,13 +43,16 @@ export const Hero = () => {
                 <div className="absolute">
                     <div className="inset-x-0 lg:top-[40px] top-[10px] text-center items-center justify-center w-full">
                         <h1 className="text-center text-lg md:text-6xl lg:text-7xl font-extrabold font-sans text-orange-100">A1-Electricals</h1>
-                        <h1 className="text-center text-sm md:text-xl lg:text-6xl leading-tight font-bold text-white px-4 mt-[10px] lg:mt-[25px] lg:px-12">LEADING MANUFACTURER & MARKETER FOR POWER CABLE ACCESSORIES</h1>
-                        <p className="text-center text-[11px] lg:py-[20px] sm:py-[10px] md:text-xl lg:text-xl leading-tight mt-[1px]">
+                        <h1 className="text-center text-sm md:text-lg lg:text-6xl leading-tight font-bold text-white px-4 mt-[1px] lg:mt-[25px] lg:px-12">LEADING MANUFACTURER & MARKETER FOR POWER CABLE ACCESSORIES</h1>
+                        <p className="text-center text-[7px] lg:py-[20px] sm:py-[9px] md:text-xl lg:text-xl leading-tight mt-[1px]">
                             A-1 Electricals was established in 2006, as a dedicated manufacturer and supplier of power cable accessories and OEM products for power sector.
                         </p>
-                        <button className="bg-blue-950 text-white text-sm mt-[75px] lg:mt-[-150px] font-semibold rounded-3xl py-1 px-2 sm:py-2 sm:px-4">
-                            View Products
-                        </button>
+                        <a href="/products">
+                                <button className="bg-blue-950 text-white text-sm lg:text-lg font-semibold rounded-3xl py-1 px-2 sm:py-2 sm:px-4 lg:relative lg:bottom-12 lg:mt-12 mt-[60px] hover:shadow-lg hover:shadow-orange-500">
+                                View Products
+                            </button>
+                        </a>
+                        
                     </div>
                 </div>
                 <Image
@@ -64,7 +68,7 @@ export const Hero = () => {
                 <div className="relative">
                     <div className="flex-col items-center justify-center text-center mt-8">
                         <h1 className="mt-4 py-4 text-4xl font-light">Our range of products includes the following:</h1>
-                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
                             {textData.map((item, index) => (
                                 <TextCard key={index} text={item.text} />
                             ))}

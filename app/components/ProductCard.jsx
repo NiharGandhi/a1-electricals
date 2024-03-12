@@ -12,7 +12,7 @@ const ProductCard = ({ imageSrc, title, buttonText, buttonLink }) => {
             <div className="p-4">
                 <h2 className="text-xl font-semibold mb-2">{title}</h2>
                 <Link href={buttonLink}>
-                    <p className="text-orange-500 bg-blue-900 rounded-xl px-2 py-1 w-[130px] font-semibold text-center hover:shadow-lg hover:shadow-orange-500 hover:transition-shadow hover:drop-shadow-lg">{buttonText}</p>
+                    <p className="text-white bg-blue-900 rounded-xl px-2 py-1 w-[130px] font-semibold text-center hover:shadow-lg hover:shadow-orange-500 hover:transition-shadow hover:drop-shadow-lg">{buttonText}</p>
                 </Link>
             </div>
             

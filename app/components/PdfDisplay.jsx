@@ -10,11 +10,11 @@ const PdfDisplay = ({ title, pdfUrl }) => {
 
     return (
         <div className="bg-gray-100 p-6 rounded-lg shadow-md shadow-orange-500">
-            <h1 className="mt-2 py-2 text-4xl font-semibold text-gray-900">{title}</h1>
-            <div className="flex-col items-center justify-center text-center mt-8">
+            <h1 className="mt-1 py-2 text-2xl lg:text-4xl font-semibold text-gray-900">{title}</h1>
+            <div className="flex-col items-center justify-center text-center mt-1">
                 <a href={pdfUrl} download>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Download PDF
+                    <button className="bg-blue-950 hover:shadow-orange-500 hover:shadow-lg text-white font-bold py-2 px-4 rounded">
+                        Download
                     </button>
                 </a>
             </div>

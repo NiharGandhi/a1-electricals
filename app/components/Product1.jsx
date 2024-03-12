@@ -5,6 +5,7 @@ import Product_1_Bg from "../../public/assets/product-1.jpg";
 import Link from "next/link";
 import BackIcon from "../../public/assets/back-icon.svg"
 
+
 const pdfData = [
     { title: "Technical Details:", pdfUrl: "/assets/A1-Electricals-Cable-Glands.pdf" },
 ];
@@ -16,16 +17,15 @@ export const Product1Page = () => {
                 <Image
                     src={HeaderBanner}
                     alt="Hero Image"
-                    className="p-0 m-0"
                     layout="responsive"
-                    width={1200}
-                    height={100} // Adjust the height as needed
                 />
                 <div className="absolute inset-x-0 bottom-0 flex items-center justify-center w-full">
-                    <Link className="text-white font-mono mt-[-300px] md:mt-[-310px] lg:mt-[-1000px] ml-2" href="/products">
-                        <Image src={BackIcon} alt="BackIcon" width={60} height={60} />
+                    <Link href="/products">
+                        <button className="absolute text-white top-[-130px] lg:top-[-520px] underline text-sm px-1 lg:text-lg">
+                            Back
+                        </button>
                     </Link>
-                    <h1 className="text-white text-3xl md:text-6xl lg:text-8xl font-bold mt-[-220px] md:mt-[-400px] lg:mt-[-700px] text-center">INDUSTRIAL BRASS CABLE GLANDS & ACCESSORIES</h1>
+                    <h1 className="text-white text-2xl md:text-6xl lg:text-8xl font-bold mt-[-165px] md:mt-[-300px] lg:mt-[-750px] text-center justify-items-center mr-[15px]">INDUSTRIAL BRASS CABLE GLANDS & ACCESSORIES</h1>
                 </div>
             </div>
             <div className="relative">

@@ -22,10 +22,12 @@ export const Product2Page = () => {
                     height={100} // Adjust the height as needed
                 />
                 <div className="absolute inset-x-0 bottom-0 flex items-center justify-center w-full">
-                    <Link className="text-white font-mono mt-[-300px] md:mt-[-310px] lg:mt-[-1000px] ml-2" href="/products">
-                        <Image src={BackIcon} alt="BackIcon" width={60} height={60} />
+                    <Link href="/products">
+                        <button className="absolute text-white top-[-130px] lg:top-[-520px] underline text-sm px-1 lg:text-lg">
+                            Back
+                        </button>
                     </Link>
-                    <h1 className="text-white text-2xl md:text-6xl lg:text-8xl font-bold mt-[-220px] md:mt-[-400px] lg:mt-[-700px] text-center">COMPRESSION COPPER / ALUMINIUM CABLE LUGS & CONNECTORS</h1>
+                    <h1 className="text-white text-xl md:text-6xl lg:text-8xl font-bold mt-[-175px] md:mt-[-300px] lg:mt-[-750px] text-center justify-items-center mr-[15px]">COMPRESSION COPPER / ALUMINIUM CABLE LUGS & CONNECTORS</h1>
                 </div>
                 
             </div>
@@ -40,7 +42,7 @@ export const Product2Page = () => {
                 />
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-1/2 p-8 mt-[200px] md:mt-[250px] lg:mt-[350px]">
                     {pdfData.map((item, index) => (
-                        <div key={index} className="mb-4 text-center items-center justify-center">
+                        <div key={index} className="text-center items-center justify-center">
                             <PdfDisplay title={item.title} pdfUrl={item.pdfUrl} />
                         </div>
                     ))}
