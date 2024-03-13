@@ -1,6 +1,7 @@
 import Image from "next/image";
 import HeaderBanner from "../../public/assets/header-banner.jpg";
 import { GoogleMapsEmbed } from '@next/third-parties/google';
+import Footer from "./Footer";
 
 export const ContactUs = () => {
     return (
@@ -47,6 +48,7 @@ export const ContactUs = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 };

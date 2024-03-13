@@ -4,6 +4,7 @@ import PdfDisplay from "./PdfDisplay";
 import Product_1_Bg from "../../public/assets/product-4-banner.jpg";
 import Link from "next/link";
 import BackIcon from "../../public/assets/back-icon.svg"
+import Footer from "./Footer";
 
 const pdfData = [
     { title: "Technical Details:", pdfUrl: "/assets/A1-Electricals-Accessories-for-Cable-Terminations-and-Joints.pdf" },
@@ -47,6 +48,9 @@ export const Product4Page = () => {
                         </div>
                     ))}
                 </div>
+            </div>
+            <div className="mt-[160px] lg:mt-[1px]">
+                <Footer />
             </div>
         </>
     );

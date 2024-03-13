@@ -4,6 +4,7 @@ import PdfDisplay from "./PdfDisplay";
 import Product_2_Bg from "../../public/assets/product-2.jpg";
 import Link from "next/link";
 import BackIcon from "../../public/assets/back-icon.svg"
+import Footer from "./Footer";
 
 const pdfData = [
     { title: "Technical Details:", pdfUrl: "/assets/A1-Electricals-Cable-Lugs.pdf" },
@@ -47,6 +48,9 @@ export const Product2Page = () => {
                         </div>
                     ))}
                 </div>
+            </div>
+            <div className="mt-[210px] lg:mt-[80px]">
+                <Footer />
             </div>
         </>
     );

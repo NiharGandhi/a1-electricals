@@ -8,6 +8,7 @@ import Product2 from "../../public/assets/product-2.jpg";
 import Product3 from "../../public/assets/product-3.jpg";
 import Product4 from "../../public/assets/product-4.jpg";
 import Product5 from "../../public/assets/product-5.jpg";
+import Footer from "./Footer";
 
 export const Products = () => {
     return (
@@ -60,6 +61,7 @@ export const Products = () => {
                     />
                 </div>
             </div>
+            <Footer />
         </>
     );
 };

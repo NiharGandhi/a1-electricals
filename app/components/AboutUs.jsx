@@ -3,6 +3,7 @@
 import Image from "next/image";
 import HeaderBanner from "../../public/assets/header-banner.jpg";
 import TextCard from "./TextCard";
+import Footer from "./Footer";
 
 export const AboutUs = () => {
     const textData = [
@@ -67,7 +68,7 @@ export const AboutUs = () => {
                     </div>
                 </div>
             </div>
-
+            <Footer />
         </>
     );
 };

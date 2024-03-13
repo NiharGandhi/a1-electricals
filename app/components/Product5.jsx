@@ -11,6 +11,7 @@ import ForgedInsulatorFittings from "../../public/assets/Forged-Insulator-Fittin
 import BronzeBoltedConnectors from "../../public/assets/Bronze-Bolted-Connectors.jpg";
 import ConstantForceSpringRoll from "../../public/assets/Constant-Force-Spring-Roll.jpg";
 import OtherProductCard from "./OtherProductCard";
+import Footer from "./Footer";
 
 
 const pdfData = [
@@ -85,6 +86,9 @@ export const Product5Page = () => {
                         </div>
                     ))}
                 </div>
+            </div>
+            <div className="mt-[160px] lg:mt-[200px]">
+                <Footer />
             </div>
         </>
     );

@@ -8,6 +8,7 @@ import FIEO from "../../public/assets/fieo-logo.jpg";
 import TextCard from "./TextCard";
 import { useState } from "react";
 import Link from "next/link";
+import Footer from "./Footer";
 
 
 export const Hero = () => {
@@ -102,6 +103,7 @@ export const Hero = () => {
                     </div>
                 </div>
             )};
+            <Footer />
         </>
     );
 }

@@ -4,6 +4,7 @@ import PdfDisplay from "./PdfDisplay";
 import Product_1_Bg from "../../public/assets/product-1.jpg";
 import Link from "next/link";
 import BackIcon from "../../public/assets/back-icon.svg"
+import Footer from "./Footer";
 
 
 const pdfData = [
@@ -44,6 +45,9 @@ export const Product1Page = () => {
                         </div>
                     ))}
                 </div>
+            </div>
+            <div className="mt-[210px] lg:mt-[200px]">
+                <Footer />
             </div>
         </>
     );

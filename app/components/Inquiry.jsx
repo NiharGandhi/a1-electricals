@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import HeaderBanner from "../../public/assets/header-banner.jpg";
+import Footer from "./Footer";
 
 export const Inquiry = () => {
     const [formData, setFormData] = useState({
@@ -146,6 +147,7 @@ export const Inquiry = () => {
                     </div>
                 </form>
             </div>
+            <Footer />
         </>
     );
 };

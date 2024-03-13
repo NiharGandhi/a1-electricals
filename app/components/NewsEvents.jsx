@@ -3,6 +3,7 @@
 import Image from "next/image";
 import HeaderBanner from "../../public/assets/header-banner.jpg";
 import BlogCard from "./BlogCard";
+import Footer from "./Footer";
 
 const blogData = [
     {
@@ -55,7 +56,7 @@ export const NewsEvents = () => {
                     </div>
                 )}
             </div>
-
+            <Footer />
         </>
     );
 }
