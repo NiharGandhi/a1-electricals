@@ -9,18 +9,8 @@ import DistributorCard from "./DistributorCard";
 export const Distributors = () => {
     return (
         <>
-            <div className="relative">
-                <Image
-                    src={HeaderBanner}
-                    alt="Hero Image"
-                    className="p-0 m-0"
-                    layout="responsive"
-                    width={1200}
-                    height={100} // Adjust the height as needed
-                />
-                <div className="absolute inset-x-0 bottom-0 flex items-center justify-center w-full">
-                    <h1 className="text-white text-4xl md:text-6xl lg:text-8xl font-bold mt-[-200px] lg:mt-[-650px]">Distributors</h1>
-                </div>
+            <div className="items-center justify-center w-full mt-0 py-4 bg-white">
+                <h1 className="text-orange-500 text-4xl md:text-6xl lg:text-6xl font-bold mt-2 mb-2 lg:mt-4 py-2 text-center">Distributors</h1>
             </div>
             <div className="w-full h-full bg-white mt-1 p-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">

@@ -51,7 +51,7 @@ export const Navbar = () => {
             </div>
 
             {isMobileMenuOpen && (
-                <div className="lg:hidden absolute top-[80px] right-0 left-0 bg-blue-950 z-10">
+                <div className="lg:hidden absolute top-[80px] right-0 left-0 bg-blue-950 z-50">
                     {navLinks.map((item, index) => {
                         return (
                             <Link

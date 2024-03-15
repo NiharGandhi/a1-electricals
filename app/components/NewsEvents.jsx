@@ -6,40 +6,30 @@ import BlogCard from "./BlogCard";
 import Footer from "./Footer";
 
 const blogData = [
-    {
-        id: 1,
-        title: "Hannover Messe Exibhition",
-        description: "Visit Us at Hannover, Germany Fair From 1st Apr – 5th Apr 2019 at Hall 13, Stand B94",
-        date: "December 20, 2018",
-        image: "",
-    },
-    {
-        id: 2,
-        title: "Hannover Messe Exibhition",
-        description: "Visit Us at Hannover, Germany Fair From 1st Apr – 5th Apr 2019 at Hall 13, Stand B94",
-        date: "December 20, 2018",
-        image: "",
-    },
+    // {
+    //     id: 1,
+    //     title: "Hannover Messe Exibhition",
+    //     description: "Visit Us at Hannover, Germany Fair From 1st Apr – 5th Apr 2019 at Hall 13, Stand B94",
+    //     date: "December 20, 2018",
+    //     image: "",
+    // },
+    // {
+    //     id: 2,
+    //     title: "Hannover Messe Exibhition",
+    //     description: "Visit Us at Hannover, Germany Fair From 1st Apr – 5th Apr 2019 at Hall 13, Stand B94",
+    //     date: "December 20, 2018",
+    //     image: "",
+    // },
 ];
 
 
 export const NewsEvents = () => {
     return (
         <>
-            <div className="relative">
-                <div className="absolute inset-x-0 top-[30px] text-center">
-                    <h1 className="text-center text-2xl md:text-lg lg:text-6xl leading-tight font-bold text-white lg:mt-[80px] lg:px-12">News & Events</h1>
-                </div>
-                <Image
-                    src={HeaderBanner}
-                    alt="Hero Image"
-                    className="p-0 m-0"
-                    layout="responsive"
-                    width={1200}
-                    height={600}
-                />
+            <div className="items-center justify-center w-full mt-0 py-4 bg-white">
+                <h1 className="text-orange-500 text-4xl md:text-6xl lg:text-6xl font-bold mt-2 mb-6 lg:mt-4 py-2 text-center">News & Events</h1>
             </div>
-            <div className="max-w-3xl mx-auto mt-8 w-full">
+            <div className="max-w-3xl mx-auto mt-2 w-full mb-[120px]">
                 {blogData.length > 0 ? (
                     blogData.map((item) => (
                         <BlogCard
