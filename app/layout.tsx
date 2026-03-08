@@ -39,13 +39,13 @@ export const metadata: Metadata = {
     title: "A-1 Electricals | Power Cable Accessories Manufacturer",
     description:
       "ISO 9001 certified manufacturer of shear bolt cable lugs, EHV substation connectors, compression lugs, cable glands & more. CE & RoHS compliant. Rajkot, India.",
-    images: [{ url: "/a1-logo.jpg", width: 1200, height: 630, alt: "A-1 Electricals" }],
+    images: [{ url: "/landing.png", width: 1200, height: 630, alt: "A-1 Electricals — Power Cable Accessories Manufacturer, Rajkot India" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "A-1 Electricals | Power Cable Accessories Manufacturer",
     description: "ISO 9001 certified manufacturer of power cable accessories. Rajkot, India.",
-    images: ["/a1-logo.jpg"],
+    images: ["/landing.png"],
   },
   alternates: { canonical: "https://www.a1electricals.com" },
   robots: {

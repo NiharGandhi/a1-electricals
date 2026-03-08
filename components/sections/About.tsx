@@ -34,9 +34,7 @@ export function About() {
 
           {/* Left sticky */}
           <div className="lg:sticky lg:top-24 flex flex-col gap-6">
-            <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/30">
-              About the Company
-            </p>
+            <p className="eyebrow-light">About the Company</p>
             <h2
               className="display text-white"
               style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.5rem)" }}
@@ -52,9 +50,7 @@ export function About() {
               renewable energy, and industrial sectors.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
-              <Link href="/about" className="btn-ghost-light">
-                Our Story
-              </Link>
+              <Link href="/about" className="btn-ghost-light">Our Story</Link>
               <Link href="/products" className="btn-primary">
                 View Products
                 <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
@@ -64,27 +60,16 @@ export function About() {
             </div>
           </div>
 
-          {/* Right: numbered pillars */}
-          <div className="flex flex-col gap-0">
-            {pillars.map((p, i) => (
-              <div
-                key={p.n}
-                className="flex gap-8 py-10"
-                style={{ borderTop: i > 0 ? "1px solid rgba(255,255,255,0.07)" : "none" }}
-              >
-                <span className="font-mono text-[10px] tracking-widest shrink-0 mt-1 text-white/25">
+          {/* Right: flat numbered pillar list */}
+          <div className="flex flex-col divide-y divide-white/8">
+            {pillars.map((p) => (
+              <div key={p.n} className="flex gap-6 py-8">
+                <span className="font-mono text-[10px] tracking-widest text-[var(--accent)] shrink-0 mt-0.5 w-6">
                   {p.n}
                 </span>
-                <div className="flex flex-col gap-3">
-                  <h3
-                    className="text-base font-semibold text-white"
-                    style={{ fontFamily: "var(--font-primary)" }}
-                  >
-                    {p.title}
-                  </h3>
-                  <p className="text-sm font-light leading-relaxed text-white/45">
-                    {p.body}
-                  </p>
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-sm font-semibold text-white">{p.title}</h3>
+                  <p className="text-[13px] font-light leading-relaxed text-white/40">{p.body}</p>
                 </div>
               </div>
             ))}
@@ -93,35 +78,25 @@ export function About() {
         </div>
 
         {/* ── Director quote ── */}
-        <div
-          className="relative overflow-hidden rounded-2xl p-10 md:p-14"
-          style={{ background: "var(--dark-surface)", border: "1px solid rgba(255,255,255,0.07)" }}
-        >
-          {/* Large decorative quote mark */}
-          <span
-            className="absolute top-6 right-10 select-none pointer-events-none leading-none text-white/[0.04]"
-            style={{ fontSize: "12rem", fontFamily: "Georgia, serif", lineHeight: 1 }}
-            aria-hidden="true"
-          >
-            "
-          </span>
-
-          {/* Accent rule */}
-          <span className="block w-8 h-[3px] rounded-full mb-8" style={{ background: "var(--accent)" }} />
-
-          <p className="text-white/75 text-lg md:text-xl font-light leading-[1.8] max-w-3xl mb-10">
-            "A-1 Electricals has extensive application engineering experience for all of our products
+        <div className="border-t border-white/8 pt-14">
+          <span className="block w-8 h-[2px] bg-[var(--accent)] mb-8" />
+          <p className="text-white/70 text-lg md:text-xl font-light leading-[1.8] max-w-3xl mb-10">
+            &ldquo;A-1 Electricals has extensive application engineering experience for all of our products
             and can therefore ensure the product recommendations and the products supplied are
-            entirely fit for purpose — and provide a lifetime trouble-free service."
+            entirely fit for purpose — and provide a lifetime trouble-free service.&rdquo;
           </p>
-
           <div className="flex items-center gap-4">
-            <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: "rgba(217,115,32,0.15)", border: "1px solid rgba(217,115,32,0.25)" }}>
-              <span className="text-[var(--accent)] font-bold text-sm">JV</span>
+            <div
+              className="w-8 h-8 flex items-center justify-center shrink-0"
+              style={{ background: "rgba(217,115,32,0.15)", border: "1px solid rgba(217,115,32,0.25)" }}
+            >
+              <span className="font-bold text-xs" style={{ color: "var(--accent)" }}>JV</span>
             </div>
             <div>
               <p className="text-white text-sm font-semibold">Janki Vachhani</p>
-              <p className="text-white/35 text-[10px] font-mono uppercase tracking-widest mt-0.5">Director, A-1 Electricals · Featured in T&amp;D Magazine</p>
+              <p className="text-white/30 text-[10px] font-mono uppercase tracking-widest mt-0.5">
+                Director, A-1 Electricals · Featured in T&amp;D Magazine
+              </p>
             </div>
           </div>
         </div>

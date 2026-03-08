@@ -20,242 +20,220 @@ export default function ProductDetailPage() {
     return (
       <section className="pt-32 pb-20">
         <Container>
-          <h1 className="font-[family-name:var(--font-display)] text-4xl text-[var(--foreground)]">
-            Product Not Found
-          </h1>
-          <p className="mt-4 text-[var(--muted)]">
-            The product you&apos;re looking for doesn&apos;t exist.
-          </p>
-          <Button href="/products" className="mt-6">
-            Back to Products
-          </Button>
+          <p className="eyebrow mb-4">Error</p>
+          <h1 className="display text-[var(--foreground)]" style={{ fontSize: "clamp(2rem,5vw,3rem)" }}>Product Not Found</h1>
+          <p className="mt-4 text-[var(--muted)]">The product you&apos;re looking for doesn&apos;t exist.</p>
+          <Button href="/products" className="mt-6">Back to Products</Button>
         </Container>
       </section>
     );
   }
 
   const category = getCategoryBySlug(product.categorySlug);
-  const relatedProducts = getProductsByCategory(product.categorySlug).filter(
-    (p) => p.slug !== product.slug
-  );
+  const related = getProductsByCategory(product.categorySlug).filter(p => p.slug !== product.slug);
 
   return (
     <>
       {/* Breadcrumb */}
       <div className="pt-24 md:pt-28 border-b border-[var(--border)]">
         <Container>
-          <div className="py-4 flex items-center gap-2 text-sm text-[var(--muted)]">
-            <Link href="/products" className="hover:text-[var(--accent)] transition-colors">
-              Products
-            </Link>
-            <span>/</span>
-            <Link
-              href={`/products?category=${product.categorySlug}`}
-              className="hover:text-[var(--accent)] transition-colors"
-            >
+          <div className="py-3.5 flex items-center gap-2 text-xs text-[var(--muted)] font-mono">
+            <Link href="/products" className="hover:text-[var(--accent)] transition-colors">Products</Link>
+            <span className="opacity-30">/</span>
+            <Link href={`/products?category=${product.categorySlug}`} className="hover:text-[var(--accent)] transition-colors">
               {category?.title}
             </Link>
-            <span>/</span>
+            <span className="opacity-30">/</span>
             <span className="text-[var(--foreground)]">{product.title}</span>
           </div>
         </Container>
       </div>
 
-      {/* Product Hero */}
-      <section className="py-16 md:py-24">
+      {/* Product hero */}
+      <section className="py-14 md:py-20 border-b border-[var(--border)]">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16 items-start">
+
             {/* Image */}
-            <div className="product-img-wrap aspect-[4/3] flex items-center justify-center p-8">
-              <Image
-                src={product.image}
-                alt={product.title}
-                width={500}
-                height={375}
-                className="object-contain w-full h-full"
-              />
+            <div className="lg:sticky lg:top-28">
+              <div className="border border-[var(--border)] bg-[var(--background-secondary)] aspect-square flex items-center justify-center p-12 overflow-hidden">
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  width={500}
+                  height={500}
+                  className="object-contain w-full h-full"
+                />
+              </div>
+              {product.standards?.length ? (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {product.standards.map((std) => (
+                    <span key={std} className="border border-[var(--border)] px-3 py-1.5 text-[10px] font-mono font-medium text-[var(--muted)] uppercase tracking-wider">
+                      {std}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
             </div>
 
             {/* Info */}
-            <div>
-              <span className="inline-block rounded-lg bg-[var(--accent)]/10 border border-[var(--accent)]/20 px-3 py-1 text-xs font-medium text-[var(--accent)] uppercase tracking-wider mb-4">
-                {category?.title}
-              </span>
-              <h1 className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl text-[var(--foreground)] tracking-wider leading-tight">
-                {product.title}
-              </h1>
-              <p className="mt-5 text-[var(--muted)] text-lg leading-relaxed">
-                {product.description}
-              </p>
-
-              {/* Standards badges */}
-              <div className="mt-6 flex flex-wrap gap-2">
-                {product.standards.map((std) => (
-                  <span
-                    key={std}
-                    className="rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-xs font-medium text-[var(--muted)]"
-                  >
-                    {std}
-                  </span>
-                ))}
+            <div className="flex flex-col gap-8">
+              <div>
+                <p className="eyebrow mb-3">{category?.title}</p>
+                <h1 className="display text-[var(--foreground)]" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
+                  {product.title}
+                </h1>
+                <div className="mt-4 w-full h-px bg-[var(--border)]" />
+                <p className="mt-5 text-[var(--muted)] text-base leading-relaxed">
+                  {product.description}
+                </p>
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button href="/inquiry" data-magnetic>
-                  Request Quote
-                </Button>
-                <Button href="/contact" variant="outline" data-magnetic>
-                  Technical Support
-                </Button>
+              {/* Key specs */}
+              {product.specs?.length ? (
+                <div>
+                  <p className="eyebrow-muted mb-3">Specifications</p>
+                  <div className="border border-[var(--border)]">
+                    {product.specs.slice(0, 4).map((spec, i) => (
+                      <div key={i} className={`flex items-start gap-4 px-4 py-3 ${i < Math.min(product.specs!.length, 4) - 1 ? "border-b border-[var(--border)]" : ""}`}>
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[var(--accent)] shrink-0" />
+                        <span className="text-sm text-[var(--muted-light)]">{spec}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {/* CTAs */}
+              <div className="flex flex-wrap gap-3">
+                <Link href="/inquiry" className="btn-primary">Request Quote</Link>
+                <Link href="/contact" className="btn-ghost">Technical Support</Link>
+              </div>
+
+              {/* Compliance */}
+              <div className="border-t border-[var(--border)] pt-5 grid grid-cols-3 gap-4">
+                {[["ISO 9001:2015", "Quality System"], ["CE / RoHS", "Compliant"], ["IEC Tested", "Certified"]].map(([title, sub]) => (
+                  <div key={title}>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--accent)]">{title}</p>
+                    <p className="text-[10px] font-mono text-[var(--muted)] mt-0.5">{sub}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* Features & Specs */}
-      <section className="py-16 md:py-24 bg-[var(--background-secondary)]">
+      {/* Features + Specs + Applications */}
+      <section className="py-14 md:py-20 bg-[var(--background-secondary)] border-b border-[var(--border)]">
         <Container>
-          <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
+          <div className="grid gap-0 lg:grid-cols-2 lg:divide-x divide-[var(--border)]">
+
             {/* Features */}
-            <div>
-              <h2 className="font-[family-name:var(--font-display)] text-3xl text-[var(--foreground)] tracking-wide mb-8">
-                Key Features
-              </h2>
-              <ul className="space-y-4">
-                {product.features.map((feature) => (
-                  <li
-                    key={feature}
-                    className="feature-item flex items-start gap-4 py-3 border-b border-[var(--border)]"
-                  >
+            <div className="lg:pr-10 pb-10 lg:pb-0">
+              <p className="eyebrow mb-5">Key Features</p>
+              <div>
+                {product.features.map((feat, i) => (
+                  <div key={i} className={`flex items-start gap-4 py-4 ${i < product.features.length - 1 ? "border-b border-[var(--border)]" : ""}`}>
                     <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[var(--accent)]" />
-                    <span className="text-[var(--muted-light)] leading-relaxed">
-                      {feature}
-                    </span>
-                  </li>
+                    <span className="text-sm text-[var(--muted-light)] leading-relaxed">{feat}</span>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
 
-            {/* Specs & Applications */}
-            <div className="space-y-10">
+            {/* Specs + Applications */}
+            <div className="lg:pl-10 pt-10 lg:pt-0 flex flex-col gap-10">
               {product.specs && (
-                <div className="spec-card rounded-2xl border border-[var(--border)] bg-white p-7">
-                <h3 className="font-[family-name:var(--font-display)] text-xl text-[var(--foreground)] tracking-wide mb-4">
-                  Technical Specifications
-                </h3>
-                <ul className="space-y-3">
-                  {product.specs?.map((spec) => (
-                    <li
-                      key={spec}
-                      className="flex items-start gap-3 text-[var(--muted)] text-sm"
-                    >
-                      <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-[var(--accent)]" />
-                      {spec}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                <div>
+                  <p className="eyebrow mb-4">Technical Specifications</p>
+                  <div className="border border-[var(--border)]">
+                    {product.specs.map((spec, i) => (
+                      <div key={i} className={`flex items-start gap-3 px-4 py-3 ${i < product.specs!.length - 1 ? "border-b border-[var(--border)]" : ""}`}>
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
+                        <span className="text-sm text-[var(--muted)]">{spec}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               )}
-
               {product.applications && (
-              <div className="spec-card rounded-2xl border border-[var(--border)] bg-white p-7">
-                <h3 className="font-[family-name:var(--font-display)] text-xl text-[var(--foreground)] tracking-wide mb-4">
-                  Applications
-                </h3>
-                <ul className="space-y-3">
-                  {product.applications.map((app) => (
-                    <li
-                      key={app}
-                      className="flex items-start gap-3 text-[var(--muted)] text-sm"
-                    >
-                      <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-[var(--accent)]" />
-                      {app}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                <div>
+                  <p className="eyebrow mb-4">Applications</p>
+                  <div className="border border-[var(--border)]">
+                    {product.applications.map((app, i) => (
+                      <div key={i} className={`flex items-start gap-3 px-4 py-3 ${i < product.applications!.length - 1 ? "border-b border-[var(--border)]" : ""}`}>
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
+                        <span className="text-sm text-[var(--muted)]">{app}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               )}
             </div>
           </div>
 
-          {/* Catalog specification table (full width) */}
+          {/* Specification table */}
           {product.specificationTable && (
-            <div className="spec-card mt-16 rounded-2xl border border-[var(--border)] bg-white p-6 md:p-8 overflow-x-auto">
-              <h3 className="font-[family-name:var(--font-display)] text-xl text-[var(--foreground)] tracking-wide mb-6">
-                Specifications
-              </h3>
-              <table className="w-full min-w-[640px] text-sm border-collapse">
-                <thead>
-                  <tr className="border-b-2 border-[var(--border)]">
-                    {product.specificationTable.columns.map((col) => (
-                      <th
-                        key={col.key}
-                        className="text-left py-3 px-4 font-medium text-[var(--foreground)] whitespace-nowrap"
-                      >
-                        {col.label}
-                        {col.unit && (
-                          <span className="text-[var(--muted)] font-normal ml-0.5">
-                            ({col.unit})
-                          </span>
-                        )}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {product.specificationTable.rows.map((row, i) => (
-                    <tr
-                      key={i}
-                      className="border-b border-[var(--border)] last:border-0 hover:bg-[var(--surface)]/50 transition-colors"
-                    >
-                      {product.specificationTable!.columns.map((col) => (
-                        <td
-                          key={col.key}
-                          className="py-3 px-4 text-[var(--muted)]"
-                        >
-                          {row[col.key] ?? "—"}
-                        </td>
+            <div className="mt-14 border border-[var(--border)]">
+              <div className="px-6 py-4 border-b border-[var(--border)] bg-[var(--surface)]">
+                <p className="eyebrow">Specifications Table</p>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[640px] text-sm border-collapse">
+                  <thead>
+                    <tr className="border-b border-[var(--border)] bg-[var(--background-secondary)]">
+                      {product.specificationTable.columns.map((col) => (
+                        <th key={col.key} className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--foreground)] whitespace-nowrap">
+                          {col.label}
+                          {col.unit && <span className="text-[var(--muted)] font-normal ml-1 normal-case">({col.unit})</span>}
+                        </th>
                       ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {product.specificationTable.rows.map((row, i) => (
+                      <tr key={i} className={`${i < product.specificationTable!.rows.length - 1 ? "border-b border-[var(--border)]" : ""} hover:bg-[var(--surface)] transition-colors`}>
+                        {product.specificationTable!.columns.map((col) => (
+                          <td key={col.key} className="py-3 px-5 text-[var(--muted)] font-mono text-xs">
+                            {row[col.key] ?? "—"}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
         </Container>
       </section>
 
       {/* Related Products */}
-      {relatedProducts.length > 0 && (
-        <section className="py-16 md:py-24">
+      {related.length > 0 && (
+        <section className="py-14 md:py-20 border-b border-[var(--border)]">
           <Container>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl text-[var(--foreground)] tracking-wide mb-10">
-              Related Products
-            </h2>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {relatedProducts.slice(0, 3).map((rp) => (
-                <Link
-                  key={rp.slug}
-                  href={`/products/${rp.slug}`}
-                  className="related-card group rounded-2xl border border-[var(--border)] bg-[var(--surface)] overflow-hidden transition-all duration-400 hover:border-[var(--accent)]/30 hover:shadow-[0_4px_30px_var(--accent-glow)] hover:-translate-y-1"
-                >
-                  <div className="aspect-[16/10] bg-[var(--background-secondary)] flex items-center justify-center p-6 overflow-hidden">
-                    <Image
-                      src={rp.image}
-                      alt={rp.title}
-                      width={300}
-                      height={200}
-                      className="object-contain w-full h-full group-hover:scale-105 transition-transform duration-500"
-                    />
+            <div className="flex items-end justify-between pb-7 border-b border-[var(--border)] mb-0">
+              <div>
+                <p className="eyebrow mb-1">More Products</p>
+                <h2 className="display-md text-[var(--foreground)]" style={{ fontSize: "clamp(1.5rem,2.5vw,1.8rem)" }}>Related Products</h2>
+              </div>
+              <Link href={`/products?category=${product.categorySlug}`} className="text-xs font-bold uppercase tracking-wider text-[var(--accent)] hover:underline flex items-center gap-1">
+                View all
+                <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </Link>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[var(--border)] border border-[var(--border)] border-t-0">
+              {related.slice(0, 3).map((rp) => (
+                <Link key={rp.slug} href={`/products/${rp.slug}`} className="group relative flex flex-col bg-white hover:bg-[var(--background-secondary)] transition-colors duration-200">
+                  <span className="absolute left-0 top-0 bottom-0 w-[3px] bg-[var(--accent)] opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                  <div className="aspect-[4/3] bg-white flex items-center justify-center p-8 border-b border-[var(--border)] overflow-hidden">
+                    <Image src={rp.image} alt={rp.title} width={300} height={225} className="object-contain w-full h-full group-hover:scale-[1.03] transition-transform duration-500" />
                   </div>
                   <div className="p-5">
-                    <h3 className="font-[family-name:var(--font-display)] text-lg text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors tracking-wide">
-                      {rp.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-[var(--muted)] line-clamp-2">
-                      {rp.description}
-                    </p>
+                    <span className="eyebrow text-[var(--accent)] block mb-1">{rp.category}</span>
+                    <h3 className="display-md text-[var(--foreground)] text-sm group-hover:text-[var(--accent)] transition-colors">{rp.title}</h3>
+                    <p className="mt-1.5 text-xs text-[var(--muted)] line-clamp-2 leading-relaxed">{rp.description}</p>
                   </div>
                 </Link>
               ))}
@@ -265,23 +243,19 @@ export default function ProductDetailPage() {
       )}
 
       {/* CTA */}
-      <section className="py-16 md:py-24 bg-[var(--background-secondary)]">
+      <section className="py-20 md:py-28 bg-[var(--dark)]">
         <Container>
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl text-[var(--foreground)] tracking-wide">
-              Need Technical Support?
-            </h2>
-            <p className="mt-4 text-[var(--muted)] text-lg">
-              Our engineering team can help with product selection, specifications,
-              and custom solutions.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Button href="/inquiry" data-magnetic>
-                Submit Inquiry
-              </Button>
-              <Button href="/contact" variant="outline" data-magnetic>
-                Contact Us
-              </Button>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+            <div>
+              <span className="block w-8 h-[2px] bg-[var(--accent)] mb-6" />
+              <h2 className="display text-white" style={{ fontSize: "clamp(1.8rem,3.5vw,2.5rem)" }}>Need Technical Support?</h2>
+              <p className="mt-3 text-white/45 text-sm leading-relaxed font-light max-w-md">
+                Our engineering team can help with product selection, specifications, and custom solutions.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 shrink-0">
+              <Link href="/inquiry" className="btn-primary">Submit Inquiry</Link>
+              <Link href="/contact" className="btn-ghost-light">Contact Us</Link>
             </div>
           </div>
         </Container>
