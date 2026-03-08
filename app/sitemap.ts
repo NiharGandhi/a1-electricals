@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { products, categories } from "@/lib/products";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.a1electricals.com";
+  const baseUrl = "https://a1-electricals-test.vercel.app";
 
   const staticPages: MetadataRoute.Sitemap = [
     {

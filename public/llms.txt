@@ -12,7 +12,7 @@
 - **Certifications**: ISO 9001:2015, CE, RoHS, IEC 61238-1, TÜV Certified, FIEO Member
 - **Max voltage rating**: 550 kV
 - **Product variants**: 500+
-- **Website**: https://www.a1electricals.com
+- **Website**: https://a1-electricals-test.vercel.app
 
 ## Products
 
@@ -45,8 +45,8 @@ Power transmission, renewable energy (solar, wind), industrial infrastructure, E
 
 ## Key Pages
 
-- Products: https://www.a1electricals.com/products
-- About: https://www.a1electricals.com/about
-- Contact: https://www.a1electricals.com/contact
-- Inquiry: https://www.a1electricals.com/inquiry
-- Distributors: https://www.a1electricals.com/distributors
+- Products: https://a1-electricals-test.vercel.app/products
+- About: https://a1-electricals-test.vercel.app/about
+- Contact: https://a1-electricals-test.vercel.app/contact
+- Inquiry: https://a1-electricals-test.vercel.app/inquiry
+- Distributors: https://a1-electricals-test.vercel.app/distributors

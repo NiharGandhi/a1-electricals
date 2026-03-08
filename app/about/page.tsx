@@ -16,7 +16,7 @@ export const metadata = {
     card: "summary_large_image" as const,
     images: ["/landing.png"],
   },
-  alternates: { canonical: "https://www.a1electricals.com/about" },
+  alternates: { canonical: "https://a1-electricals-test.vercel.app/about" },
 };
 
 const pillars = [
