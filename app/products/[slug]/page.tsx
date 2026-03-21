@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -31,6 +32,31 @@ export default function ProductDetailPage() {
 
   const category = getCategoryBySlug(product.categorySlug);
   const related = getProductsByCategory(product.categorySlug).filter(p => p.slug !== product.slug);
+  const specificationSections = product.specificationTables?.length
+    ? product.specificationTables.map((entry) => ({
+        title: entry.title,
+        tabLabel: entry.tabLabel ?? entry.title,
+        image: entry.image ?? product.image,
+        drawingImage: entry.drawingImage,
+        drawingImages: entry.drawingImages ?? (entry.drawingImage ? [entry.drawingImage] : []),
+        table: entry.table,
+      }))
+    : product.specificationTable
+      ? [{
+          title: "Specifications Table",
+          tabLabel: "Specifications",
+          image: product.image,
+          drawingImage: product.showDrawingWithSpecification ? product.image : undefined,
+          drawingImages: product.specificationDrawingImages
+            ?? (product.showDrawingWithSpecification ? [product.image] : []),
+          table: product.specificationTable,
+        }]
+      : [];
+  const [activeSpecIndex, setActiveSpecIndex] = useState(0);
+  const activeSpecSection = useMemo(
+    () => specificationSections[Math.min(activeSpecIndex, Math.max(specificationSections.length - 1, 0))],
+    [activeSpecIndex, specificationSections]
+  );
 
   return (
     <>
@@ -58,7 +84,7 @@ export default function ProductDetailPage() {
             <div className="lg:sticky lg:top-28">
               <div className="border border-[var(--border)] bg-[var(--background-secondary)] aspect-square flex items-center justify-center p-12 overflow-hidden">
                 <Image
-                  src={product.image}
+                  src={activeSpecSection?.image ?? product.image}
                   alt={product.title}
                   width={500}
                   height={500}
@@ -83,6 +109,27 @@ export default function ProductDetailPage() {
                 <h1 className="display text-[var(--foreground)]" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
                   {product.title}
                 </h1>
+                {specificationSections.length > 1 && (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {specificationSections.map((section, sectionIndex) => {
+                      const isActive = sectionIndex === activeSpecIndex;
+                      return (
+                        <button
+                          key={`hero-${section.tabLabel}-${sectionIndex}`}
+                          type="button"
+                          onClick={() => setActiveSpecIndex(sectionIndex)}
+                          className={`px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] border transition-colors ${
+                            isActive
+                              ? "bg-[var(--accent)] text-white border-[var(--accent)]"
+                              : "bg-white text-[var(--muted)] border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                          }`}
+                        >
+                          {section.tabLabel}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
                 <div className="mt-4 w-full h-px bg-[var(--border)]" />
                 <p className="mt-5 text-[var(--muted)] text-base leading-relaxed">
                   {product.description}
@@ -174,35 +221,89 @@ export default function ProductDetailPage() {
           </div>
 
           {/* Specification table */}
-          {product.specificationTable && (
-            <div className="mt-14 border border-[var(--border)]">
-              <div className="px-6 py-4 border-b border-[var(--border)] bg-[var(--surface)]">
-                <p className="eyebrow">Specifications Table</p>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full min-w-[640px] text-sm border-collapse">
-                  <thead>
-                    <tr className="border-b border-[var(--border)] bg-[var(--background-secondary)]">
-                      {product.specificationTable.columns.map((col) => (
-                        <th key={col.key} className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--foreground)] whitespace-nowrap">
-                          {col.label}
-                          {col.unit && <span className="text-[var(--muted)] font-normal ml-1 normal-case">({col.unit})</span>}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {product.specificationTable.rows.map((row, i) => (
-                      <tr key={i} className={`${i < product.specificationTable!.rows.length - 1 ? "border-b border-[var(--border)]" : ""} hover:bg-[var(--surface)] transition-colors`}>
-                        {product.specificationTable!.columns.map((col) => (
-                          <td key={col.key} className="py-3 px-5 text-[var(--muted)] font-mono text-xs">
-                            {row[col.key] ?? "—"}
-                          </td>
+          {activeSpecSection && (
+            <div className="mt-14 space-y-4">
+              {specificationSections.length > 1 && (
+                <div className="flex flex-wrap gap-2">
+                  {specificationSections.map((section, sectionIndex) => {
+                    const isActive = sectionIndex === activeSpecIndex;
+                    return (
+                      <button
+                        key={`${section.tabLabel}-${sectionIndex}`}
+                        type="button"
+                        onClick={() => setActiveSpecIndex(sectionIndex)}
+                        className={`px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] border transition-colors ${
+                          isActive
+                            ? "bg-[var(--accent)] text-white border-[var(--accent)]"
+                            : "bg-white text-[var(--muted)] border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                        }`}
+                      >
+                        {section.tabLabel}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+              <div className={`${product.showDrawingWithSpecification && activeSpecSection.drawingImages.length > 0 ? "grid gap-6 lg:grid-cols-[1.15fr_1fr] items-start" : ""}`}>
+                <div className="border border-[var(--border)]">
+                  <div className="px-6 py-4 border-b border-[var(--border)] bg-[var(--surface)]">
+                    <p className="eyebrow">{activeSpecSection.title}</p>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[640px] text-sm border-collapse">
+                      <thead>
+                        <tr className="border-b border-[var(--border)] bg-[var(--background-secondary)]">
+                          {activeSpecSection.table.columns.map((col) => (
+                            <th key={col.key} className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--foreground)] whitespace-nowrap">
+                              {col.label}
+                              {col.unit && <span className="text-[var(--muted)] font-normal ml-1 normal-case">({col.unit})</span>}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {activeSpecSection.table.rows.map((row, i) => (
+                          <tr key={i} className={`${i < activeSpecSection.table.rows.length - 1 ? "border-b border-[var(--border)]" : ""} hover:bg-[var(--surface)] transition-colors`}>
+                            {activeSpecSection.table.columns.map((col) => (
+                              <td key={col.key} className="py-3 px-5 text-[var(--muted)] font-mono text-xs">
+                                {row[col.key] ?? "—"}
+                              </td>
+                            ))}
+                          </tr>
                         ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                      </tbody>
+                    </table>
+                  </div>
+                  {activeSpecSection.table.notes?.length ? (
+                    <div className="px-6 py-4 border-t border-[var(--border)] bg-[var(--background-secondary)]">
+                      <p className="eyebrow mb-2">Notes</p>
+                      <div className="space-y-1">
+                        {activeSpecSection.table.notes.map((note, idx) => (
+                          <p key={idx} className="text-xs text-[var(--muted)] font-mono">
+                            {note}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+                {product.showDrawingWithSpecification && activeSpecSection.drawingImages.length > 0 && (
+                  <div className="border border-[var(--border)] bg-white p-4 lg:sticky lg:top-28">
+                    <p className="eyebrow mb-3">Technical Drawing</p>
+                    <div className={`grid gap-2 ${activeSpecSection.drawingImages.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
+                      {activeSpecSection.drawingImages.map((img: string, idx: number) => (
+                        <div key={`${img}-${idx}`} className="relative aspect-[4/3]">
+                          <Image
+                            src={img}
+                            alt={`${product.title} ${activeSpecSection.tabLabel} drawing ${idx + 1}`}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
