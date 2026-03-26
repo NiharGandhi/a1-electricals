@@ -244,19 +244,31 @@ export default function ProductDetailPage() {
                   })}
                 </div>
               )}
-              <div className={`${product.showDrawingWithSpecification && activeSpecSection.drawingImages.length > 0 ? "grid gap-6 lg:grid-cols-[1.15fr_1fr] items-start" : ""}`}>
-                <div className="border border-[var(--border)]">
+              <div
+                className={
+                  product.showDrawingWithSpecification && activeSpecSection.drawingImages.length > 0
+                    ? "grid gap-8 grid-cols-1 min-w-0 lg:grid-cols-[minmax(0,1fr)_minmax(260px,38%)] lg:items-start lg:gap-6"
+                    : "min-w-0"
+                }
+              >
+                {/* min-w-0 lets this column shrink so wide tables scroll inside overflow-x-auto instead of pushing drawings off-screen */}
+                <div className="min-w-0 max-w-full border border-[var(--border)]">
                   <div className="px-6 py-4 border-b border-[var(--border)] bg-[var(--surface)]">
                     <p className="eyebrow">{activeSpecSection.title}</p>
                   </div>
-                  <div className="overflow-x-auto">
+                  <div className="overflow-x-auto overscroll-x-contain">
                     <table className="w-full min-w-[640px] text-sm border-collapse">
                       <thead>
                         <tr className="border-b border-[var(--border)] bg-[var(--background-secondary)]">
                           {activeSpecSection.table.columns.map((col) => (
-                            <th key={col.key} className="text-left py-3 px-5 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--foreground)] whitespace-nowrap">
+                            <th
+                              key={col.key}
+                              className="text-left py-3 px-5 text-[11px] font-bold text-[var(--foreground)] whitespace-nowrap tracking-wide"
+                            >
                               {col.label}
-                              {col.unit && <span className="text-[var(--muted)] font-normal ml-1 normal-case">({col.unit})</span>}
+                              {col.unit && (
+                                <span className="text-[var(--muted)] font-semibold ml-1">({col.unit})</span>
+                              )}
                             </th>
                           ))}
                         </tr>
@@ -264,11 +276,24 @@ export default function ProductDetailPage() {
                       <tbody>
                         {activeSpecSection.table.rows.map((row, i) => (
                           <tr key={i} className={`${i < activeSpecSection.table.rows.length - 1 ? "border-b border-[var(--border)]" : ""} hover:bg-[var(--surface)] transition-colors`}>
-                            {activeSpecSection.table.columns.map((col) => (
-                              <td key={col.key} className="py-3 px-5 text-[var(--muted)] font-mono text-xs">
-                                {row[col.key] ?? "—"}
-                              </td>
-                            ))}
+                            {activeSpecSection.table.columns.map((col) => {
+                              const wrap =
+                                col.key === "pnInsp" ||
+                                col.key === "pnNoInsp" ||
+                                col.key === "stud";
+                              return (
+                                <td
+                                  key={col.key}
+                                  className={`py-3 px-5 text-[var(--muted)] text-xs ${
+                                    wrap
+                                      ? "whitespace-normal break-words min-w-[10rem] max-w-[20rem] font-sans"
+                                      : "font-mono whitespace-nowrap"
+                                  }`}
+                                >
+                                  {row[col.key] ?? "—"}
+                                </td>
+                              );
+                            })}
                           </tr>
                         ))}
                       </tbody>
@@ -288,16 +313,28 @@ export default function ProductDetailPage() {
                   ) : null}
                 </div>
                 {product.showDrawingWithSpecification && activeSpecSection.drawingImages.length > 0 && (
-                  <div className="border border-[var(--border)] bg-white p-4 lg:sticky lg:top-28">
-                    <p className="eyebrow mb-3">Technical Drawing</p>
-                    <div className={`grid gap-2 ${activeSpecSection.drawingImages.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
+                  <div className="min-w-0 w-full border border-[var(--border)] bg-white p-4 lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
+                    <p className="eyebrow mb-3">
+                      Technical drawing{activeSpecSection.drawingImages.length > 1 ? "s" : ""}
+                    </p>
+                    <div
+                      className={`grid gap-4 ${
+                        activeSpecSection.drawingImages.length > 1
+                          ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2"
+                          : "grid-cols-1"
+                      }`}
+                    >
                       {activeSpecSection.drawingImages.map((img: string, idx: number) => (
-                        <div key={`${img}-${idx}`} className="relative aspect-[4/3]">
+                        <div
+                          key={`${img}-${idx}`}
+                          className="relative aspect-[4/3] w-full min-h-[180px] bg-[var(--background-secondary)]"
+                        >
                           <Image
                             src={img}
                             alt={`${product.title} ${activeSpecSection.tabLabel} drawing ${idx + 1}`}
                             fill
-                            className="object-contain"
+                            sizes="(max-width: 1024px) 100vw, 38vw"
+                            className="object-contain p-2"
                           />
                         </div>
                       ))}
