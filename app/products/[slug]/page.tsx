@@ -53,6 +53,9 @@ export default function ProductDetailPage() {
         }]
       : [];
   const [activeSpecIndex, setActiveSpecIndex] = useState(0);
+  const galleryImages = product.galleryImages?.length ? product.galleryImages : null;
+  const allGalleryImages = galleryImages ? [product.image, ...galleryImages] : null;
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
   const activeSpecSection = useMemo(
     () => specificationSections[Math.min(activeSpecIndex, Math.max(specificationSections.length - 1, 0))],
     [activeSpecIndex, specificationSections]
@@ -82,15 +85,72 @@ export default function ProductDetailPage() {
 
             {/* Image */}
             <div className="lg:sticky lg:top-28">
-              <div className="border border-[var(--border)] bg-[var(--background-secondary)] aspect-square flex items-center justify-center p-12 overflow-hidden">
+              {/* Main image */}
+              <div className="border border-[var(--border)] bg-[var(--background-secondary)] aspect-square flex items-center justify-center p-12 overflow-hidden relative">
                 <Image
-                  src={activeSpecSection?.image ?? product.image}
+                  src={allGalleryImages ? allGalleryImages[activeGalleryIndex] : (activeSpecSection?.image ?? product.image)}
                   alt={product.title}
                   width={500}
                   height={500}
-                  className="object-contain w-full h-full"
+                  className="object-contain w-full h-full transition-opacity duration-200"
                 />
+                {/* Carousel arrows */}
+                {allGalleryImages && allGalleryImages.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setActiveGalleryIndex((i) => (i - 1 + allGalleryImages.length) % allGalleryImages.length)}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center border border-[var(--border)] bg-white/80 hover:bg-white hover:border-[var(--accent)] transition-colors text-[var(--muted)] hover:text-[var(--accent)]"
+                      aria-label="Previous image"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveGalleryIndex((i) => (i + 1) % allGalleryImages.length)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center border border-[var(--border)] bg-white/80 hover:bg-white hover:border-[var(--accent)] transition-colors text-[var(--muted)] hover:text-[var(--accent)]"
+                      aria-label="Next image"
+                    >
+                      ›
+                    </button>
+                    {/* Dot indicators */}
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                      {allGalleryImages.map((_, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setActiveGalleryIndex(idx)}
+                          className={`w-1.5 h-1.5 rounded-full transition-colors ${idx === activeGalleryIndex ? "bg-[var(--accent)]" : "bg-[var(--border)]"}`}
+                          aria-label={`Go to image ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
+              {/* Thumbnail strip */}
+              {allGalleryImages && allGalleryImages.length > 1 && (
+                <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+                  {allGalleryImages.map((src, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveGalleryIndex(idx)}
+                      className={`shrink-0 w-16 h-16 border-2 bg-[var(--background-secondary)] flex items-center justify-center p-1.5 overflow-hidden transition-colors ${
+                        idx === activeGalleryIndex ? "border-[var(--accent)]" : "border-[var(--border)] hover:border-[var(--accent)]/50"
+                      }`}
+                    >
+                      <Image
+                        src={src}
+                        alt={`${product.title} view ${idx + 1}`}
+                        width={60}
+                        height={60}
+                        className="object-contain w-full h-full"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
               {product.standards?.length ? (
                 <div className="mt-4 flex flex-wrap gap-2">
                   {product.standards.map((std) => (
