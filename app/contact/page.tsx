@@ -18,7 +18,7 @@ const contactItems = [
   {
     label: "Address",
     lines: [
-      "G-1053, Lodhika GIDC Metoda",
+      "G-1028, Lodhika GIDC Metoda",
       "Kalavad Road, Metoda",
       "Rajkot 360021, Gujarat, India",
     ],

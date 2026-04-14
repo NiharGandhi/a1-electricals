@@ -12,6 +12,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const [shortcutHint, setShortcutHint] = useState<"⌘ K" | "Ctrl K">("Ctrl K");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -19,7 +20,22 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const isApplePlatform =
+      typeof navigator !== "undefined" &&
+      (navigator.platform.toLowerCase().includes("mac") ||
+        navigator.userAgent.toLowerCase().includes("mac os") ||
+        navigator.userAgent.toLowerCase().includes("iphone") ||
+        navigator.userAgent.toLowerCase().includes("ipad"));
+
+    setShortcutHint(isApplePlatform ? "⌘ K" : "Ctrl K");
+  }, []);
+
   const frosted = !isHome || scrolled || open;
+  const openSearch = () => {
+    setOpen(false);
+    window.dispatchEvent(new Event("open-site-search"));
+  };
 
   return (
     <header
@@ -79,6 +95,28 @@ export function Header() {
 
           {/* CTA + hamburger */}
           <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={openSearch}
+              className={`hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full border transition-colors ${
+                frosted
+                  ? "border-white/20 text-white/70 hover:text-white hover:border-white/40"
+                  : "border-[var(--border)] text-[var(--muted)] hover:text-[var(--foreground)] hover:border-[var(--foreground)]"
+              }`}
+              aria-label="Open search"
+              title={`Search (${shortcutHint})`}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path
+                  d="M7 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm7 3-3.2-3.2"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+
             <Link
               href="/inquiry"
               className="hidden sm:block btn-primary"
@@ -107,6 +145,17 @@ export function Header() {
         } bg-[var(--dark)]/98 backdrop-blur-xl`}
       >
         <div className="px-5 py-6 space-y-1">
+          <button
+            type="button"
+            onClick={openSearch}
+            className="flex w-full items-center justify-between py-3.5 border-b border-white/[0.06] text-sm font-semibold text-white/55 hover:text-white transition-colors"
+          >
+            Search
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="opacity-50">
+              <path d="M7 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm7 3-3.2-3.2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
           {navLinks.map((link) => (
             <Link
               key={link.href}

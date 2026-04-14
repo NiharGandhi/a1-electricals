@@ -95,7 +95,7 @@ export function Footer() {
               <div>
                 <p className="text-white/20 text-[10px] uppercase tracking-widest mb-1 font-semibold">Address</p>
                 <p className="text-white/35 leading-[1.7] text-sm">
-                  G-1053, Lodhika GIDC Metoda,<br />
+                  G-1028, Lodhika GIDC Metoda,<br />
                   Kalavad Road, Rajkot 360021,<br />
                   Gujarat, India
                 </p>

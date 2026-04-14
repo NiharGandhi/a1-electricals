@@ -8,7 +8,7 @@
 - **Full name**: A-1 Electricals
 - **Type**: Manufacturer (B2B)
 - **Founded**: 2006
-- **Location**: G-1053, Lodhika GIDC Metoda, Kalavad Road, Rajkot 360021, Gujarat, India
+- **Location**: G-1028, Lodhika GIDC Metoda, Kalavad Road, Rajkot 360021, Gujarat, India
 - **Certifications**: ISO 9001:2015, CE, RoHS, IEC 61238-1, TÜV Certified, FIEO Member
 - **Max voltage rating**: 550 kV
 - **Product variants**: 500+

@@ -67,7 +67,7 @@ const organizationSchema = {
   foundingDate: "2006",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "G-1053, Lodhika GIDC Metoda, Kalavad Road, Metoda",
+    streetAddress: "G-1028, Lodhika GIDC Metoda, Kalavad Road, Metoda",
     addressLocality: "Rajkot",
     addressRegion: "Gujarat",
     postalCode: "360021",
@@ -81,8 +81,35 @@ const organizationSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(() => {
+  const stripCursorRefs = () => {
+    document.querySelectorAll("[data-cursor-ref]").forEach((el) => el.removeAttribute("data-cursor-ref"));
+  };
+
+  stripCursorRefs();
+
+  const observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (mutation.type === "attributes" && mutation.attributeName === "data-cursor-ref") {
+        mutation.target.removeAttribute("data-cursor-ref");
+      }
+    }
+  });
+
+  observer.observe(document.documentElement, {
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["data-cursor-ref"],
+  });
+
+  setTimeout(() => observer.disconnect(), 3000);
+})();`,
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -94,7 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className="antialiased">
+      <body className="antialiased" suppressHydrationWarning>
         <Shell>{children}</Shell>
       </body>
     </html>

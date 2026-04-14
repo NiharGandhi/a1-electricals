@@ -2,6 +2,7 @@
 
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { SiteSearchModal } from "@/components/search/SiteSearchModal";
 
 export function Shell({ children }: { children: React.ReactNode }) {
   return (
@@ -9,6 +10,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       <Header />
       <main>{children}</main>
       <Footer />
+      <SiteSearchModal />
     </>
   );
 }

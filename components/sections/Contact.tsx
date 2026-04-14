@@ -30,7 +30,7 @@ const contactItems = [
   {
     label: "Factory & Office",
     lines: [
-      { text: "G-1053, Lodhika GIDC Metoda" },
+      { text: "G-1028, Lodhika GIDC Metoda" },
       { text: "Kalavad Road, Rajkot 360021" },
       { text: "Gujarat, India" },
     ],
