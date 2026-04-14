@@ -113,7 +113,7 @@ export function Contact() {
                 className="text-white mb-3"
                 style={{ fontFamily: "var(--font-display)", fontSize: "1.375rem", fontWeight: 600, lineHeight: 1.2 }}
               >
-                Ready to place an order?
+                Send an Inquiry
               </p>
               <p className="text-white/55 text-sm leading-[1.75]">
                 Submit a detailed inquiry and our team will respond within one business day.

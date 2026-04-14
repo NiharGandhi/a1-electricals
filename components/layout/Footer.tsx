@@ -21,7 +21,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="inline-flex items-center gap-3 mb-5">
-              <Image src="/a1-logo.jpg" alt="A-1 Electricals" width={40} height={40} className="rounded" />
+              <Image src="/a1-icon.png" alt="A-1 Electricals" width={40} height={40} className="rounded" />
               <div>
                 <p
                   className="text-white leading-tight"

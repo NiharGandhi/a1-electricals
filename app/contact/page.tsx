@@ -43,12 +43,6 @@ const contactItems = [
   },
 ];
 
-const hours = [
-  { day: "Monday – Friday", time: "9:00 – 18:00 IST" },
-  { day: "Saturday", time: "9:00 – 14:00 IST" },
-  { day: "Sunday", time: "Closed" },
-];
-
 export default function ContactPage() {
   return (
     <>
@@ -115,10 +109,10 @@ export default function ContactPage() {
             <div className="pb-10 lg:pb-0 lg:pr-12">
               <span className="block w-8 h-[2px] bg-[var(--accent)] mb-6" />
               <h2 className="display text-white mb-3" style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)" }}>
-                Datasheet Download
+                Datasheet & Catalogue Download
               </h2>
               <p className="text-white/45 text-sm leading-relaxed mb-7 font-light max-w-sm">
-                Submit the form to unlock the full Datasheet and Approvals download — available as PDF for all product ranges.
+                Submit your details and we will send catalogue PDFs directly to your email.
               </p>
               <div className="flex flex-col gap-2">
                 {["Product Datasheets (PDF)", "Approval Certificates", "Technical Specifications", "Installation Guides"].map((item) => (

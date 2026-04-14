@@ -120,6 +120,7 @@ export function Header() {
             <Link
               href="/inquiry"
               className="hidden sm:block btn-primary"
+              hidden
             >
               Get a Quote
             </Link>

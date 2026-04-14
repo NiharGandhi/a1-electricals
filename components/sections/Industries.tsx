@@ -102,7 +102,7 @@ export function Industries() {
             className="display text-white"
             style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.5rem)" }}
           >
-            Built for Critical
+            Built for Energy
             <br />
             <span style={{ color: "var(--accent)" }}>Infrastructure.</span>
           </h2>

@@ -38,28 +38,35 @@ function ProductsContent() {
         <Container>
 
           {/* Header + filter */}
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 pb-7 border-b border-[var(--border)]">
-            <div>
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5 pb-7 border-b border-[var(--border)]">
+            <div className="min-h-[88px] lg:min-h-[96px]">
               <p className="eyebrow mb-2">Product Catalogue</p>
-              <h2 className="display-md text-[var(--foreground)]" style={{ fontSize: "clamp(1.6rem, 3vw, 2rem)" }}>
+              <h2
+                className="display-md text-[var(--foreground)] leading-tight min-h-[2.6rem] lg:min-h-[2.9rem] line-clamp-2"
+                style={{ fontSize: "clamp(1.6rem, 3vw, 2rem)" }}
+              >
                 {isAllSelected
                   ? "Product Categories"
                   : categories.find((c) => c.slug === activeCategory)?.title}
               </h2>
-              <p className="mt-1 text-[10px] sm:text-xs text-[var(--muted)] font-mono">
-                {isAllSelected
-                  ? `${categories.length} categor${categories.length !== 1 ? "ies" : "y"}`
-                  : `${filtered.length} product${filtered.length !== 1 ? "s" : ""}`}
+              <p className="mt-1 text-[10px] sm:text-xs text-[var(--muted)] font-mono min-h-[1.2rem]">
+                {isAllSelected ? (
+                  `${categories.length} categor${categories.length !== 1 ? "ies" : "y"}`
+                ) : (
+                  <>
+                    {filtered.length} product{filtered.length !== 1 ? "s" : ""}
+                  </>
+                )}
               </p>
             </div>
 
-            <div className="flex gap-2 overflow-x-auto max-w-full pb-1">
+            <div className="flex flex-wrap gap-2 max-w-full lg:max-w-[58%] lg:justify-end lg:content-start lg:min-h-[88px]">
               {[{ slug: "all", shortLabel: "All" }, ...categories].map((cat) => (
                 <button
                   key={cat.slug}
                   type="button"
                   onClick={() => setActiveCategory(cat.slug === "all" ? "all" : (activeCategory === cat.slug ? "all" : cat.slug))}
-                  className={`shrink-0 px-2 py-1 text-[9px] sm:px-3 sm:py-1.5 sm:text-[10px] md:text-[11px] font-bold tracking-[0.12em] sm:tracking-[0.15em] uppercase border transition-all duration-150 ${
+                  className={`shrink-0 px-2.5 py-1.5 text-[9px] sm:px-3.5 sm:text-[10px] md:text-[11px] font-bold tracking-[0.12em] sm:tracking-[0.14em] uppercase border transition-all duration-150 ${
                     (cat.slug === "all" && activeCategory === "all") || activeCategory === cat.slug
                       ? "bg-[var(--accent)] text-white border-[var(--accent)]"
                       : "bg-transparent text-[var(--muted)] border-[var(--border)] hover:border-[var(--foreground)] hover:text-[var(--foreground)]"

@@ -20,6 +20,32 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Contact Email Setup (Server-side Only)
+
+The contact form sends mail through the backend route at `app/api/contact/route.ts`.
+No SMTP credentials are exposed to the client.
+
+1. Copy `.env.example` to `.env.local`.
+2. Set these server-only variables:
+   - `SMTP_HOST`
+   - `SMTP_PORT`
+   - `SMTP_SECURE` (`true` for SSL/TLS port `465`, usually `false` for `587`)
+   - `SMTP_USER`
+   - `SMTP_PASS`
+   - `CONTACT_FROM_EMAIL`
+   - `CONTACT_TO_EMAIL`
+   - `SITE_URL` (used to generate absolute catalogue links sent by email)
+   - `CONTACT_RATE_LIMIT_WINDOW_MS` (optional, default `60000`)
+   - `CONTACT_RATE_LIMIT_MAX_REQUESTS` (optional, default `3`)
+   - `CATALOGUE_RATE_LIMIT_WINDOW_MS` (optional, default `60000`)
+   - `CATALOGUE_RATE_LIMIT_MAX_REQUESTS` (optional, default `5`)
+3. Restart the dev server after changing env values.
+
+Important:
+- Do **not** use `NEXT_PUBLIC_*` for email secrets.
+- Keep `.env.local` out of version control.
+- In production (e.g. Vercel), add these same values in project environment variables.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
