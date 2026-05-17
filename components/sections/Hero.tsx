@@ -64,6 +64,9 @@ export function Hero() {
                 <Link href="/inquiry" className="btn-ghost" hidden>
                   Request a Quote
                 </Link>
+                <Link href="/contact" className="btn-ghost">
+                  Contact Us
+                </Link>
               </div>
             </div>
 

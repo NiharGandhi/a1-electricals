@@ -1,16 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
 
-const inputClass =
-  "w-full border border-[var(--border)] bg-[var(--background-secondary)] px-4 py-3 text-[var(--foreground)] placeholder:text-[var(--muted)]/40 focus:border-[var(--accent)] focus:bg-white focus:outline-none focus:ring-0 transition-all duration-200 text-sm";
-
-const labelClass = "block text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--muted)] mb-1.5";
-
 export default function InquiryPage() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("sending");
+    setErrorMessage("");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = {
+      name: String(formData.get("company") ?? "").trim(),
+      email: String(formData.get("email") ?? "").trim(),
+      phone: String(formData.get("phone") ?? "").trim(),
+      subject: String(formData.get("subject") ?? "").trim(),
+      message: String(formData.get("message") ?? "").trim(),
+      website: String(formData.get("website") ?? "").trim(), // honeypot
+    };
+
+    try {
+      const response = await fetch("/api/inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = (await response.json()) as { error?: string };
+      if (!response.ok) {
+        throw new Error(result.error ?? "Failed to send inquiry.");
+      }
+
+      form.reset();
+      setStatus("sent");
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(
+        error instanceof Error ? error.message : "Unable to send your inquiry right now. Please try again.",
+      );
+    }
+  };
 
   return (
     <>
@@ -59,60 +94,79 @@ export default function InquiryPage() {
               <div className="mt-5 w-full h-px bg-[var(--border)] mb-7" />
 
               <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setStatus("sending");
-                  setTimeout(() => setStatus("sent"), 800);
-                }}
+                onSubmit={handleSubmit}
               >
                 {/* Contact information */}
                 <div className="mb-8">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--foreground)] pb-3 border-b border-[var(--border)] mb-5">
-                    Contact Information
-                  </p>
+                  <p className="form-section-heading">Contact Information</p>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <label className="block">
-                      <span className={labelClass}>Company / Name *</span>
-                      <input type="text" name="company" required className={inputClass} placeholder="Your company or name" />
+                      <span className="form-label">Company / Name *</span>
+                      <input
+                        type="text"
+                        name="company"
+                        required
+                        className="form-input"
+                        placeholder="Your company or name"
+                      />
                     </label>
                     <label className="block">
-                      <span className={labelClass}>Email *</span>
-                      <input type="email" name="email" required className={inputClass} placeholder="your@email.com" />
+                      <span className="form-label">Email *</span>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        className="form-input"
+                        placeholder="your@email.com"
+                      />
                     </label>
                     <label className="block">
-                      <span className={labelClass}>Phone</span>
-                      <input type="tel" name="phone" className={inputClass} placeholder="+91 ..." />
+                      <span className="form-label">Phone</span>
+                      <input
+                        type="tel"
+                        name="phone"
+                        className="form-input"
+                        placeholder="+91 ..."
+                      />
                     </label>
                   </div>
                 </div>
 
                 {/* Product requirements */}
                 <div className="mb-8">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--foreground)] pb-3 border-b border-[var(--border)] mb-5">
-                    Product &amp; Requirements
-                  </p>
+                  <p className="form-section-heading">Product &amp; Requirements</p>
                   <div className="grid gap-4">
                     <label className="block">
-                      <span className={labelClass}>Product / Subject</span>
+                      <span className="form-label">Product / Subject</span>
                       <input
                         type="text"
                         name="subject"
-                        className={inputClass}
+                        className="form-input"
                         placeholder="e.g. Shear Bolt Lugs, Cable Cleats, EHV Connectors"
                       />
                     </label>
                     <label className="block">
-                      <span className={labelClass}>Message *</span>
+                      <span className="form-label">Message *</span>
                       <textarea
                         name="message"
                         rows={5}
                         required
-                        className={`${inputClass} resize-y`}
+                        className="form-textarea"
                         placeholder="Include: voltage grade, cable size, quantity, application details, and relevant standards."
                       />
                     </label>
                   </div>
                 </div>
+
+                {/* Honeypot field for bot detection */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute -left-[9999px] h-0 w-0 opacity-0 pointer-events-none"
+                />
 
                 <div className="flex items-center gap-5 pt-2">
                   <button
@@ -120,12 +174,21 @@ export default function InquiryPage() {
                     disabled={status !== "idle"}
                     className="btn-primary"
                   >
-                    {status === "sending" ? "Sending…" : status === "sent" ? "Submitted ✓" : "Submit Inquiry"}
+                    {status === "sending"
+                      ? "Sending…"
+                      : status === "sent"
+                        ? "Submitted ✓"
+                        : status === "error"
+                          ? "Try Again"
+                          : "Submit Inquiry"}
                   </button>
                   {status === "sent" && (
                     <span className="text-sm text-[var(--accent)] font-medium">
                       Thank you — we&rsquo;ll respond soon.
                     </span>
+                  )}
+                  {status === "error" && errorMessage && (
+                    <span className="text-sm text-red-500 font-medium">{errorMessage}</span>
                   )}
                 </div>
               </form>

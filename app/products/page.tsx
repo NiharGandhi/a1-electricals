@@ -84,10 +84,9 @@ function ProductsContent() {
               style={{ background: "var(--border)" }}
             >
               {categories.map((category) => (
-                <button
+                <Link
                   key={category.slug}
-                  type="button"
-                  onClick={() => setActiveCategory(category.slug)}
+                  href={`/products/${category.slug}`}
                   className="group text-left relative flex flex-col bg-[var(--background)] transition-colors duration-200 hover:bg-[var(--surface)]"
                 >
                   <span className="absolute left-0 top-0 bottom-0 w-[3px] bg-[var(--accent)] opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
@@ -115,7 +114,7 @@ function ProductsContent() {
                       </svg>
                     </span>
                   </div>
-                </button>
+                </Link>
               ))}
             </div>
           ) : (

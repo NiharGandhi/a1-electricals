@@ -3,7 +3,7 @@ import "./globals.css";
 import { Shell } from "@/components/layout/Shell";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://a1-electricals-test.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://a1electricals.com"),
   title: {
     default: "A-1 Electricals | Power Cable Accessories Manufacturer – Rajkot, India",
     template: "%s | A-1 Electricals",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://a1-electricals-test.vercel.app",
+    url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://a1electricals.com",
     siteName: "A-1 Electricals",
     title: "A-1 Electricals | Power Cable Accessories Manufacturer",
     description:
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     description: "ISO 9001 certified manufacturer of power cable accessories. Rajkot, India.",
     images: ["/landing.png"],
   },
-  alternates: { canonical: "https://a1-electricals-test.vercel.app" },
+  alternates: { canonical: process.env.NEXT_PUBLIC_SITE_URL ?? "https://a1electricals.com" },
   robots: {
     index: true,
     follow: true,
@@ -60,8 +60,8 @@ const organizationSchema = {
   "@type": "Organization",
   name: "A-1 Electricals",
   alternateName: "A1 Electricals",
-  url: "https://a1-electricals-test.vercel.app",
-  logo: "https://a1-electricals-test.vercel.app/a1-logo.jpg",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://a1electricals.com",
+  logo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://a1electricals.com"}/a1-logo.jpg`,
   description:
     "ISO 9001 certified manufacturer of power cable accessories including shear bolt cable lugs, EHV substation connectors, compression lugs, cable glands, cable cleats, and busbars.",
   foundingDate: "2006",

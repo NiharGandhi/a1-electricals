@@ -15,20 +15,18 @@ export function Header() {
   const [shortcutHint, setShortcutHint] = useState<"⌘ K" | "Ctrl K">("Ctrl K");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const isApple =
+      navigator.platform.toLowerCase().includes("mac") ||
+      navigator.userAgent.toLowerCase().includes("mac os") ||
+      navigator.userAgent.toLowerCase().includes("iphone") ||
+      navigator.userAgent.toLowerCase().includes("ipad");
+    if (isApple) setShortcutHint("⌘ K");
   }, []);
 
   useEffect(() => {
-    const isApplePlatform =
-      typeof navigator !== "undefined" &&
-      (navigator.platform.toLowerCase().includes("mac") ||
-        navigator.userAgent.toLowerCase().includes("mac os") ||
-        navigator.userAgent.toLowerCase().includes("iphone") ||
-        navigator.userAgent.toLowerCase().includes("ipad"));
-
-    setShortcutHint(isApplePlatform ? "⌘ K" : "Ctrl K");
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const frosted = !isHome || scrolled || open;
@@ -123,6 +121,12 @@ export function Header() {
               hidden
             >
               Get a Quote
+            </Link>
+            <Link
+              href="/products"
+              className="hidden sm:block btn-primary"
+            >
+              View Products
             </Link>
 
             <button

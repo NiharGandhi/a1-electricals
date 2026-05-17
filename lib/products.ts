@@ -121,7 +121,7 @@ export const categories: ProductCategory[] = [
   },
   {
     slug: "cable-glands",
-    title: "Cable Galnds",
+    title: "Cable Glands",
     shortLabel: "Cable Glands",
     description:
       "Cable glands ensure secure cable entry with effective sealing, earthing, and strain relief to protect against dust, moisture, and mechanical stress. They ensure safe, durable terminations in industrial, power and hazardous area applications.",

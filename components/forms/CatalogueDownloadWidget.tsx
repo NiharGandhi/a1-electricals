@@ -34,10 +34,10 @@ export function CatalogueDownloadWidget() {
         />
 
         <div
-          className={`group pointer-events-auto absolute right-0 top-0 h-full w-full max-w-xl origin-right overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform ${
+          className={`group pointer-events-auto absolute right-0 origin-right overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform ${
             open
-              ? "scale-x-100 scale-y-100 border-l border-[var(--border)] bg-[var(--background-alt)] shadow-[-20px_0_60px_rgba(0,0,0,0.35)]"
-              : "scale-x-[0.095] scale-y-[0.22] border border-r-0 border-[var(--accent)] bg-[var(--accent)]/95 shadow-xl"
+              ? "top-0 h-full w-full max-w-xl border-l border-[var(--border)] bg-[var(--background-alt)] shadow-[-20px_0_60px_rgba(0,0,0,0.35)]"
+              : "top-1/2 h-40 w-10 -translate-y-1/2 border border-r-0 border-[var(--accent)] bg-[var(--accent)]/80 shadow-xl sm:h-52 sm:w-12 sm:bg-[var(--accent)]/95"
           }`}
           onClick={(event) => {
             event.stopPropagation();
@@ -48,10 +48,8 @@ export function CatalogueDownloadWidget() {
           aria-label={open ? "Catalogue download form" : "Download catalogue"}
         >
           <span
-            className={`absolute inset-0 flex items-center justify-center origin-center [writing-mode:vertical-rl] [text-orientation:mixed] text-[11px] font-bold uppercase tracking-[0.16em] text-white transition-all duration-300 ${
-              open
-                ? "opacity-0 scale-100"
-                : "opacity-100 scale-x-[10.5] scale-y-[4.55]"
+            className={`absolute inset-0 flex items-center justify-center px-1 [writing-mode:vertical-rl] [text-orientation:mixed] font-bold uppercase tracking-[0.12em] text-white transition-all duration-300 sm:tracking-[0.16em] ${
+              open ? "opacity-0" : "text-[9px] opacity-100 sm:text-[11px]"
             }`}
           >
             Download Catalogue

@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { products, categories } from "@/lib/products";
+import { articles } from "@/lib/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://a1-electricals-test.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://a1electricals.com";
 
   const staticPages: MetadataRoute.Sitemap = [
     {
@@ -36,21 +37,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/distributors`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/news`,
+      url: `${baseUrl}/resources`,
       lastModified: new Date(),
       changeFrequency: "weekly",
-      priority: 0.6,
+      priority: 0.7,
     },
   ];
 
   const categoryPages: MetadataRoute.Sitemap = categories.map((cat) => ({
-    url: `${baseUrl}/products?category=${cat.slug}`,
+    url: `${baseUrl}/products/${cat.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.85,
@@ -63,5 +58,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
-  return [...staticPages, ...categoryPages, ...productPages];
+  const articlePages: MetadataRoute.Sitemap = articles.map((article) => ({
+    url: `${baseUrl}/resources/${article.slug}`,
+    lastModified: new Date(article.publishedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.65,
+  }));
+
+  return [...staticPages, ...categoryPages, ...productPages, ...articlePages];
 }

@@ -17,7 +17,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "GoogleOther", allow: "/" },
       { userAgent: "Bingbot", allow: "/" },
     ],
-    sitemap: "https://a1-electricals-test.vercel.app/sitemap.xml",
-    host: "https://a1-electricals-test.vercel.app",
+    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://a1electricals.com"}/sitemap.xml`,
+    host: process.env.NEXT_PUBLIC_SITE_URL ?? "https://a1electricals.com",
   };
 }

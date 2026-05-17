@@ -3,9 +3,6 @@
 import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui/Button";
 
-const inputClass =
-  "w-full border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)] placeholder:text-[var(--muted)]/50 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/10 transition-all duration-300";
-
 type DownloadResponse = {
   error?: string;
 };
@@ -70,27 +67,23 @@ export function DatasheetForm({ embedded = false }: { embedded?: boolean }) {
       <p className="text-sm text-[var(--muted)] mb-5">
         Enter name and email. We will send the catalogue to your inbox.
       </p>
-      <label className="block mb-5">
-        <span className="mb-2 block text-xs text-[var(--muted)] uppercase tracking-wider font-medium">
-          Name
-        </span>
+      <label className="block mb-4">
+        <span className="form-label">Name *</span>
         <input
           type="text"
           name="name"
           required
-          className={inputClass}
+          className="form-input"
           placeholder="Your name"
         />
       </label>
       <label className="block mb-5">
-        <span className="mb-2 block text-xs text-[var(--muted)] uppercase tracking-wider font-medium">
-          Work Email
-        </span>
+        <span className="form-label">Work Email *</span>
         <input
           type="email"
           name="email"
           required
-          className={inputClass}
+          className="form-input"
           placeholder="you@company.com"
         />
       </label>

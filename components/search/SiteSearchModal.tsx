@@ -140,11 +140,19 @@ export function SiteSearchModal() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [shortcutHint, setShortcutHint] = useState<"Cmd K" | "Ctrl K">("Ctrl K");
+  useEffect(() => {
+    const isApple =
+      navigator.platform.toLowerCase().includes("mac") ||
+      navigator.userAgent.toLowerCase().includes("mac os") ||
+      navigator.userAgent.toLowerCase().includes("iphone") ||
+      navigator.userAgent.toLowerCase().includes("ipad");
+    if (isApple) setShortcutHint("Cmd K");
+  }, []);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const searchItems = useMemo<IndexedSearchItem[]>(() => {
     const categoryItems: SearchItem[] = categories.map((category) => ({
-      href: `/products?category=${category.slug}`,
+      href: `/products/${category.slug}`,
       title: category.title,
       description: category.description,
       type: "Category",
@@ -181,31 +189,21 @@ export function SiteSearchModal() {
   }, [normalizedQuery, searchItems]);
 
   useEffect(() => {
-    setActiveIndex(0);
-  }, [normalizedQuery, open]);
-
-  useEffect(() => {
-    const isApplePlatform =
-      typeof navigator !== "undefined" &&
-      (navigator.platform.toLowerCase().includes("mac") ||
-        navigator.userAgent.toLowerCase().includes("mac os") ||
-        navigator.userAgent.toLowerCase().includes("iphone") ||
-        navigator.userAgent.toLowerCase().includes("ipad"));
-
-    setShortcutHint(isApplePlatform ? "Cmd K" : "Ctrl K");
-  }, []);
-
-  useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
-        setOpen((prev) => !prev);
+        setOpen((prev) => {
+          const next = !prev;
+          if (next) setActiveIndex(0);
+          return next;
+        });
         return;
       }
 
       if (event.key === "/" && !isTypingTarget(event.target)) {
         event.preventDefault();
         setOpen(true);
+        setActiveIndex(0);
         return;
       }
 
@@ -219,15 +217,13 @@ export function SiteSearchModal() {
   }, []);
 
   useEffect(() => {
-    const onOpenSearch = () => setOpen(true);
+    const onOpenSearch = () => {
+      setActiveIndex(0);
+      setOpen(true);
+    };
     window.addEventListener("open-site-search", onOpenSearch);
     return () => window.removeEventListener("open-site-search", onOpenSearch);
   }, []);
-
-  useEffect(() => {
-    setOpen(false);
-    setQuery("");
-  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -244,10 +240,13 @@ export function SiteSearchModal() {
   };
 
   return (
-    <>
+    <div key={pathname}>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setActiveIndex(0);
+          setOpen(true);
+        }}
         className="fixed bottom-6 right-4 sm:right-6 z-50 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--background)] px-4 py-2 text-xs font-semibold text-[var(--foreground)] shadow-lg hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
         aria-label="Open search"
       >
@@ -270,7 +269,10 @@ export function SiteSearchModal() {
               <input
                 autoFocus
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={(event) => {
+                  setActiveIndex(0);
+                  setQuery(event.target.value);
+                }}
                 onKeyDown={(event) => {
                   if (!results.length) return;
 
@@ -353,6 +355,6 @@ export function SiteSearchModal() {
           </div>
         </div>
       ) : null}
-    </>
+    </div>
   );
 }

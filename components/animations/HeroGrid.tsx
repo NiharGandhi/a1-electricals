@@ -48,7 +48,8 @@ function pointAt(pts: { x: number; y: number }[], t: number) {
     const d = Math.hypot(pts[i].x - pts[i-1].x, pts[i].y - pts[i-1].y);
     segs.push(d); total += d;
   }
-  let target = total * t, acc = 0;
+  const target = total * t;
+  let acc = 0;
   for (let i = 0; i < segs.length; i++) {
     if (acc + segs[i] >= target) {
       const f = segs[i] > 0 ? (target - acc) / segs[i] : 0;

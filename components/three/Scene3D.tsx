@@ -123,13 +123,25 @@ function ParticleField() {
   const pointsRef = useRef<THREE.Points>(null);
   const count = 200;
 
+  // Deterministic RNG to avoid `Math.random` during render (and keep visuals stable).
+  function mulberry32(seed: number) {
+    let t = seed >>> 0;
+    return () => {
+      t += 0x6d2b79f5;
+      let r = Math.imul(t ^ (t >>> 15), 1 | t);
+      r ^= r + Math.imul(r ^ (r >>> 7), 61 | r);
+      return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
   const geometry = useMemo(() => {
     const geo = new THREE.BufferGeometry();
+    const rand = mulberry32(1337);
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+      positions[i * 3] = (rand() - 0.5) * 20;
+      positions[i * 3 + 1] = (rand() - 0.5) * 20;
+      positions[i * 3 + 2] = (rand() - 0.5) * 20;
     }
     geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     return geo;

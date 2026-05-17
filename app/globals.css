@@ -256,6 +256,80 @@ body.cursor-active label { cursor: none; }
   .btn-ghost-light:active { transform: scale(0.97) !important; }
 }
 
+/* ─── Form Elements ──────────────────────────────────────────── */
+@layer components {
+  .form-label {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-input,
+  .form-textarea {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--foreground);
+    background: var(--background-alt);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: var(--muted);
+    opacity: 0.55;
+  }
+
+  .form-input:hover,
+  .form-textarea:hover {
+    border-color: var(--border-strong);
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: #ffffff;
+  }
+
+  .form-input:disabled,
+  .form-textarea:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 7.5rem;
+    line-height: 1.6;
+  }
+
+  .form-section-heading {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--foreground);
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.25rem;
+  }
+}
+
 /* ─── Product image wrap ─────────────────────────────────────── */
 .product-img-wrap {
   position: relative;
@@ -277,3 +351,106 @@ body.cursor-active label { cursor: none; }
 .section-light  { background: var(--background); }
 .section-warm   { background: var(--background-alt); }
 .section-dark   { background: var(--dark); }
+
+/* ─── Article / Prose ────────────────────────────────────────── */
+.prose-article h2 {
+  font-size: clamp(1.3rem, 2.5vw, 1.65rem);
+  font-weight: 700;
+  color: var(--foreground);
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.prose-article h3 {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 700;
+  color: var(--foreground);
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+.prose-article p {
+  color: var(--muted-light);
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+.prose-article ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.25rem;
+}
+.prose-article ul li {
+  position: relative;
+  padding-left: 1.25rem;
+  color: var(--muted-light);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 0.4rem;
+}
+.prose-article ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.prose-article strong {
+  font-weight: 700;
+  color: var(--foreground);
+}
+.prose-article code {
+  font-family: monospace;
+  font-size: 0.875em;
+  background: var(--surface);
+  padding: 0.15em 0.4em;
+  border-radius: 2px;
+  color: var(--foreground);
+}
+.prose-article pre {
+  background: var(--dark);
+  color: #e2e8f0;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.prose-article pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+.prose-article a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-article a:hover { color: var(--accent-dim); }
+.prose-article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+.prose-article th {
+  text-align: left;
+  padding: 0.6rem 1rem;
+  border-bottom: 2px solid var(--border);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--foreground);
+  background: var(--surface);
+}
+.prose-article td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  vertical-align: top;
+}

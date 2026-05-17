@@ -78,7 +78,7 @@ export function About() {
         </div>
 
         {/* ── Director quote ── */}
-        <div className="border-t border-white/8 pt-14">
+        {/* <div className="border-t border-white/8 pt-14">
           <span className="block w-8 h-[2px] bg-[var(--accent)] mb-8" />
           <p className="text-white/70 text-lg md:text-xl font-light leading-[1.8] max-w-3xl mb-10">
             &ldquo;A-1 Electricals has extensive application engineering experience for all of our products
@@ -99,7 +99,7 @@ export function About() {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
 
       </Container>
     </section>

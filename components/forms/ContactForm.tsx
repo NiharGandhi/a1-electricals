@@ -3,9 +3,6 @@
 import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui/Button";
 
-const inputClass =
-  "w-full rounded-xl border border-[var(--border)] bg-white px-4 py-3 text-[var(--foreground)] placeholder:text-[var(--muted)]/50 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/10 transition-all duration-300";
-
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [message, setMessage] = useState<string>("");
@@ -53,52 +50,44 @@ export function ContactForm() {
 
   return (
     <form className="max-w-xl" onSubmit={handleSubmit}>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="mb-2 block text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
-            Name
-          </span>
+          <span className="form-label">Name *</span>
           <input
             type="text"
             name="name"
             required
-            className={inputClass}
+            className="form-input"
             placeholder="Your name"
           />
         </label>
         <label className="block">
-          <span className="mb-2 block text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
-            Email
-          </span>
+          <span className="form-label">Email *</span>
           <input
             type="email"
             name="email"
             required
-            className={inputClass}
+            className="form-input"
             placeholder="your@email.com"
           />
         </label>
       </div>
-      <label className="mt-5 block">
-        <span className="mb-2 block text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
-          Subject
-        </span>
+      <label className="mt-4 block">
+        <span className="form-label">Subject</span>
         <input
           type="text"
           name="subject"
-          className={inputClass}
-          placeholder="Subject"
+          className="form-input"
+          placeholder="Brief subject of inquiry"
         />
       </label>
-      <label className="mt-5 block">
-        <span className="mb-2 block text-xs font-medium text-[var(--muted)] uppercase tracking-wider">
-          Message
-        </span>
+      <label className="mt-4 block">
+        <span className="form-label">Message *</span>
         <textarea
           name="message"
           rows={5}
           required
-          className={`${inputClass} resize-y`}
+          className="form-textarea"
           placeholder="Your message"
         />
       </label>

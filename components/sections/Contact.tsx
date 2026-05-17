@@ -27,12 +27,24 @@ const contactItems = [
       </svg>
     ),
   },
+  // {
+  //   label: "Factory & Office",
+  //   lines: [
+  //     { text: "G-1028, Lodhika GIDC Metoda" },
+  //     { text: "Kalavad Road, Rajkot 360021" },
+  //     { text: "Gujarat, India" },
+  //   ],
+  //   icon: (
+  //     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  //       <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+  //       <circle cx="12" cy="10" r="3" />
+  //     </svg>
+  //   ),
+  // },
   {
-    label: "Factory & Office",
+    label: "Location",
     lines: [
-      { text: "G-1028, Lodhika GIDC Metoda" },
-      { text: "Kalavad Road, Rajkot 360021" },
-      { text: "Gujarat, India" },
+      { text: "Rajkot, Gujarat, India" },
     ],
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -70,52 +82,65 @@ export function Contact() {
         </div>
 
         {/* Contact cards + CTA */}
-        <div className="grid gap-5 md:grid-cols-3 lg:grid-cols-4">
+        <div
+          className="grid gap-px md:grid-cols-3 lg:grid-cols-4"
+          style={{ background: "rgba(255,255,255,0.07)" }}
+        >
           {contactItems.map((item) => (
-            <div key={item.label} className="card-dark p-7">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-5 text-[var(--accent)]" style={{ background: "rgba(217,115,32,0.1)", border: "1px solid rgba(217,115,32,0.2)" }}>
+            <div
+              key={item.label}
+              className="flex flex-col gap-6 p-8 bg-[var(--dark)] transition-colors duration-200 hover:bg-[var(--dark-surface)]"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-white/25">
+                  Contact
+                </span>
+                <span className="text-white/35">
                 {item.icon}
+                </span>
               </div>
-              <p
-                className="text-white mb-3"
-                style={{ fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: 600 }}
-              >
-                {item.label}
-              </p>
-              <div className="space-y-1">
-                {item.lines.map((line) =>
-                  'href' in line ? (
-                    <a
-                      key={line.text}
-                      href={line.href}
-                      className="block text-white/45 hover:text-[var(--accent)] transition-colors text-sm"
-                    >
-                      {line.text}
-                    </a>
-                  ) : (
-                    <p key={line.text} className="text-white/45 text-sm leading-relaxed">
-                      {line.text}
-                    </p>
-                  )
-                )}
+
+              <div>
+                <p
+                  className="mb-3 text-sm font-semibold text-white"
+                  style={{ fontFamily: "var(--font-primary)" }}
+                >
+                  {item.label}
+                </p>
+                <div className="space-y-1">
+                  {item.lines.map((line) =>
+                    'href' in line ? (
+                      <a
+                        key={line.text}
+                        href={line.href}
+                        className="block text-sm font-light text-white/45 transition-colors hover:text-[var(--accent)]"
+                      >
+                        {line.text}
+                      </a>
+                    ) : (
+                      <p key={line.text} className="text-sm font-light leading-relaxed text-white/45">
+                        {line.text}
+                      </p>
+                    )
+                  )}
+                </div>
               </div>
             </div>
           ))}
 
           {/* CTA card */}
           <div
-            className="flex flex-col justify-between p-7 rounded-xl md:col-span-3 lg:col-span-1"
-            style={{ background: "var(--dark-surface)", border: "1px solid rgba(217,115,32,0.25)" }}
+            className="flex flex-col justify-between gap-6 p-8 bg-[var(--dark)] transition-colors duration-200 hover:bg-[var(--dark-surface)] md:col-span-3 lg:col-span-1"
           >
             <div>
-              <span className="block w-6 h-[2px] rounded-full mb-5" style={{ background: "var(--accent)" }} />
+              <span className="mb-5 block h-[2px] w-7 bg-[var(--accent)]" />
               <p
-                className="text-white mb-3"
-                style={{ fontFamily: "var(--font-display)", fontSize: "1.375rem", fontWeight: 600, lineHeight: 1.2 }}
+                className="mb-3 text-[1.375rem] font-semibold leading-[1.2] text-white"
+                style={{ fontFamily: "var(--font-display)" }}
               >
                 Send an Inquiry
               </p>
-              <p className="text-white/55 text-sm leading-[1.75]">
+              <p className="text-sm font-light leading-[1.75] text-white/45">
                 Submit a detailed inquiry and our team will respond within one business day.
               </p>
             </div>
